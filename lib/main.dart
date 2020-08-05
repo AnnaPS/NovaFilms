@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:novafilm/src/pages/home_page.dart';
+import 'package:novafilm/src/pages/movie_detail.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +18,10 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       initialRoute: '/',
-      routes: {'/': (BuildContext context) => HomePage()},
+      routes: {
+        '/': (BuildContext context) => HomePage(),
+        'detail': (BuildContext context) => MovieDetail()
+      },
     );
   }
 }
