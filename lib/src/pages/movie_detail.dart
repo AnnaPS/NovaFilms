@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:novafilm/src/models/actors_model.dart';
 import 'package:novafilm/src/models/movie.dart';
+import 'package:novafilm/src/providers/movies_provider.dart';
 
 class MovieDetail extends StatelessWidget {
   @override
@@ -17,6 +19,7 @@ class MovieDetail extends StatelessWidget {
             _description(movie),
             _description(movie),
             _description(movie),
+            _createCasting(movie)
           ]),
         )
       ],
@@ -106,6 +109,58 @@ class MovieDetail extends StatelessWidget {
       child: Text(
         movie.overview,
         textAlign: TextAlign.justify,
+      ),
+    );
+  }
+
+  Widget _createCasting(Movie movie) {
+    final movieProvider = MoviesProvider();
+    return FutureBuilder(
+      future: movieProvider.getCast(movie.id.toString()),
+      builder: (context, AsyncSnapshot<List> snapshot) {
+        if (snapshot.hasData) {
+          return _createActorsPageView(snapshot.data);
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _createActorsPageView(List<Actor> actorList) {
+    return SizedBox(
+      height: 200.0,
+      child: PageView.builder(
+        itemCount: actorList.length,
+        pageSnapping: false,
+        controller: PageController(initialPage: 1, viewportFraction: 0.3),
+        itemBuilder: (context, index) {
+          return _actorCard(actorList[index]);
+        },
+      ),
+    );
+  }
+
+  Widget _actorCard(Actor actor) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20.0),
+            child: FadeInImage(
+              image: NetworkImage(actor.getPhoto()),
+              placeholder: AssetImage('assets/img/no-image.jpg'),
+              height: 150.0,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Text(
+            actor.name,
+            overflow: TextOverflow.ellipsis,
+          )
+        ],
       ),
     );
   }

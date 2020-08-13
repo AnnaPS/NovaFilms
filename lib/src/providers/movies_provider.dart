@@ -1,3 +1,4 @@
+import 'package:novafilm/src/models/actors_model.dart';
 import 'package:novafilm/src/models/movie.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -62,5 +63,17 @@ class MoviesProvider {
     _loading = false;
 
     return resp;
+  }
+
+  Future<List<Actor>> getCast(String movieId) async {
+    final url = Uri.https(_baseUrl, '3/movie/$movieId/credits',
+        {'api_key': _apikey, 'language': _language});
+
+    final response = await http.get(url);
+    // Recoge la respuesta del servicio y la convierte en un mapa
+    final decodedData = json.decode(response.body);
+    // Construye el objeto cast desde la raiz 'cast'
+    final cast = Cast.fromJsonList(decodedData['cast']);
+    return cast.actors;
   }
 }
