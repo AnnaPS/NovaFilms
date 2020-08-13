@@ -29,11 +29,12 @@ class MovieDetail extends StatelessWidget {
   Widget _createAppBar(Movie movie) {
     return SliverAppBar(
       elevation: 2.0,
-      backgroundColor: Colors.white,
-      expandedHeight: 200.0,
+      backgroundColor: Colors.grey.shade800,
+      expandedHeight: 250.0,
       floating: true,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
+        collapseMode: CollapseMode.parallax,
         titlePadding: EdgeInsets.only(left: 10, bottom: 10),
         centerTitle: true,
         title: Text(
@@ -44,14 +45,11 @@ class MovieDetail extends StatelessWidget {
           ),
           overflow: TextOverflow.ellipsis,
         ),
-        background: ClipRRect(
-          borderRadius: BorderRadius.circular(15),
-          child: FadeInImage(
-            image: NetworkImage(movie.getBackgroundImg()),
-            placeholder: AssetImage('assets/img/loading.gif'),
-            fadeInDuration: Duration(milliseconds: 200),
-            fit: BoxFit.cover,
-          ),
+        background: FadeInImage(
+          image: NetworkImage(movie.getBackgroundImg()),
+          placeholder: AssetImage('assets/img/loading.gif'),
+          fadeInDuration: Duration(milliseconds: 200),
+          fit: BoxFit.cover,
         ),
       ),
     );
@@ -62,11 +60,14 @@ class MovieDetail extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
         children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child: Image(
-              image: NetworkImage(movie.getPosterImg()),
-              height: 150.0,
+          Hero(
+            tag: movie.uniqueId,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Image(
+                image: NetworkImage(movie.getPosterImg()),
+                height: 150.0,
+              ),
             ),
           ),
           SizedBox(
