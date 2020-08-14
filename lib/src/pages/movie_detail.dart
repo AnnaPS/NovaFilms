@@ -18,7 +18,6 @@ class MovieDetail extends StatelessWidget {
             _posterTitle(movie, context),
             _description(movie),
             _description(movie),
-            _description(movie),
             _createCasting(movie)
           ]),
         )
@@ -30,7 +29,7 @@ class MovieDetail extends StatelessWidget {
     return SliverAppBar(
       elevation: 2.0,
       backgroundColor: Colors.grey.shade800,
-      expandedHeight: 250.0,
+      expandedHeight: 200.0,
       floating: true,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
@@ -110,6 +109,7 @@ class MovieDetail extends StatelessWidget {
       child: Text(
         movie.overview,
         textAlign: TextAlign.justify,
+        style: TextStyle(fontSize: 18),
       ),
     );
   }
@@ -160,6 +160,7 @@ class MovieDetail extends StatelessWidget {
           Text(
             actor.name,
             overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontWeight: FontWeight.bold),
           )
         ],
       ),

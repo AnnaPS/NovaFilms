@@ -12,7 +12,8 @@ class CardSwiper extends StatelessWidget {
     final _screenSize = MediaQuery.of(context).size;
 
     return Container(
-      padding: EdgeInsets.only(top: 5.0),
+      height: 500,
+      padding: EdgeInsets.only(top: 30.0),
       child: Swiper(
         itemBuilder: (BuildContext context, int index) {
           movies[index].uniqueId = '${movies[index].id}-card';
@@ -26,19 +27,22 @@ class CardSwiper extends StatelessWidget {
                 child: FadeInImage(
                   image: NetworkImage(movies[index].getPosterImg()),
                   placeholder: AssetImage('assets/img/no-image.jpg'),
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
           );
         },
         itemCount: movies.length,
-        itemWidth: _screenSize.width * 0.9,
-        itemHeight: _screenSize.height * 0.6,
-        layout: SwiperLayout.TINDER,
-
-        // pagination: new SwiperPagination(),
-        // control: new SwiperControl(),
+        itemWidth: _screenSize.width * 0.6,
+        itemHeight: _screenSize.height * 0.4,
+        layout: SwiperLayout.CUSTOM,
+        customLayoutOption: CustomLayoutOption(startIndex: 0, stateCount: 3)
+            .addRotate([-55.0 / 180, 0.0, 55.0 / 180]).addTranslate([
+          Offset(-230.0, -40.0),
+          Offset(0.0, 0.0),
+          Offset(230.0, -40.0)
+        ]).addOpacity([0.6, 1, 1]),
       ),
     );
   }

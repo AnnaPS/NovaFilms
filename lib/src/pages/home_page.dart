@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Peliculas en cines'),
-        backgroundColor: Colors.indigoAccent,
+        backgroundColor: Colors.grey.shade800,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
@@ -20,12 +20,14 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            _swiperCards(),
-            footer(context),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              _swiperCards(),
+              footer(context),
+            ],
+          ),
         ),
       ),
     );
@@ -57,6 +59,9 @@ class HomePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          SizedBox(
+            height: 10.0,
+          ),
           Container(
               padding: EdgeInsets.only(left: 20),
               child: Text('Populares',
