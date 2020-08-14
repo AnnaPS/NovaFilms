@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
     moviesProvider.getPopularMovies();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Peliculas en cines'),
+        title: Text('Nova\'s films'),
         backgroundColor: Colors.grey.shade800,
         actions: <Widget>[
           IconButton(
@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              _swiperCards(),
+              _swiperCards(context),
               footer(context),
             ],
           ),
@@ -33,23 +33,38 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _swiperCards() {
-    return FutureBuilder(
-      future: moviesProvider.getMoviesInCinema(),
-      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
-        if (snapshot.hasData) {
-          return CardSwiper(
-            movies: snapshot.data,
-          );
-        } else {
-          return Container(
-            height: 700,
-            child: Center(
-              child: CircularProgressIndicator(),
+  Widget _swiperCards(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 30.0, left: 20.0),
+            child: Text(
+              'Peliculas en cines',
+              style: Theme.of(context).textTheme.headline4,
             ),
-          );
-        }
-      },
+          ),
+          FutureBuilder(
+            future: moviesProvider.getMoviesInCinema(),
+            builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+              if (snapshot.hasData) {
+                return CardSwiper(
+                  movies: snapshot.data,
+                );
+              } else {
+                return Container(
+                  height: 700,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 

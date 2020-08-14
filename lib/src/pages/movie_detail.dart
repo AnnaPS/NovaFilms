@@ -44,11 +44,21 @@ class MovieDetail extends StatelessWidget {
           ),
           overflow: TextOverflow.ellipsis,
         ),
-        background: FadeInImage(
-          image: NetworkImage(movie.getBackgroundImg()),
-          placeholder: AssetImage('assets/img/loading.gif'),
-          fadeInDuration: Duration(milliseconds: 200),
-          fit: BoxFit.cover,
+        background: ShaderMask(
+          shaderCallback: (rect) {
+            return LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.black, Colors.transparent],
+            ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
+          },
+          blendMode: BlendMode.dstIn,
+          child: FadeInImage(
+            image: NetworkImage(movie.getBackgroundImg()),
+            placeholder: AssetImage('assets/img/loading.gif'),
+            fadeInDuration: Duration(milliseconds: 200),
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     );
