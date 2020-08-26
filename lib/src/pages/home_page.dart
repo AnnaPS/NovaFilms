@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:novafilm/src/providers/movies_provider.dart';
+import 'package:novafilm/src/search/search_delegate.dart';
 import 'package:novafilm/src/widgets/card_swiper_widget.dart';
 import 'package:novafilm/src/widgets/horizontal_cards.dart';
 
@@ -15,18 +16,23 @@ class HomePage extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: () {},
+            onPressed: () {
+              showSearch(context: context, delegate: DataSearch());
+            },
           )
         ],
       ),
       body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              _swiperCards(context),
-              footer(context),
-            ],
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 30.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                _swiperCards(context),
+                footer(context),
+              ],
+            ),
           ),
         ),
       ),
@@ -97,6 +103,9 @@ class HomePage extends StatelessWidget {
               }
             },
           ),
+          SizedBox(
+            height: 20.0,
+          )
         ],
       ),
     );

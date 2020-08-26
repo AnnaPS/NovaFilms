@@ -22,7 +22,7 @@ class HorizontalCards extends StatelessWidget {
     });
 
     return Container(
-      height: _screenSize.height * 0.25,
+      height: _screenSize.height,
       child: PageView.builder(
         pageSnapping: false,
         controller: _pageController,
@@ -38,6 +38,7 @@ class HorizontalCards extends StatelessWidget {
     final movieCard = Container(
       margin: EdgeInsets.only(right: 15.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Hero(
             tag: movie.uniqueId,
