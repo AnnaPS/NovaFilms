@@ -70,6 +70,11 @@ class DataSearch extends SearchDelegate {
                 ),
                 title: Text(movie.title),
                 subtitle: Text(movie.originalTitle),
+                onTap: () {
+                  close(context, null);
+                  movie.uniqueId = '';
+                  Navigator.pushNamed(context, 'detail', arguments: movie);
+                },
               );
             }).toList(),
           );
